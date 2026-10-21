@@ -1,4 +1,4 @@
-import apiClient from './client.js';
+import apiClient from '../../../api/client.js';
 
 export const carouselService = {
   async getSlides() {
@@ -6,3 +6,5 @@ export const carouselService = {
     return response.data?.data || [];
   },
 };
+
+export const { getSlides } = carouselService;

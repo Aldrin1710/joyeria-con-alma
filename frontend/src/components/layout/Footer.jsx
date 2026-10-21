@@ -1,7 +1,8 @@
 import { FaFacebook, FaWhatsapp, FaInstagram } from 'react-icons/fa';
+import { buildWhatsappLink } from '../../features/products/utils/buildWhatsappLink';
 
 export default function Footer() {
-  const waNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '';
+  const waLink = buildWhatsappLink();
 
   return (
     <footer className="footer">
@@ -20,7 +21,7 @@ export default function Footer() {
           <a href="https://www.facebook.com/profile.php?id=100027233036988" target="_blank" rel="noreferrer" aria-label="Instagram">
             <FaInstagram />
           </a>
-          <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noreferrer" aria-label="WhatsApp">
+          <a href={waLink} target="_blank" rel="noreferrer" aria-label="WhatsApp">
             <FaWhatsapp />
           </a>
         </div>

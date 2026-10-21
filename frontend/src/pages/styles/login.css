@@ -76,8 +76,14 @@
   margin-top: 0.5rem;
 }
 
-.btn-login:hover {
+.btn-login:hover:not(:disabled) {
   background-color: var(--gold-dark);
+}
+
+.btn-login:disabled,
+.login-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .error-msg {

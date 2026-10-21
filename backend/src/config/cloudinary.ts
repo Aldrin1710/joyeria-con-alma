@@ -8,10 +8,23 @@ cloudinary.config({
   secure: true,
 });
 
+const isMockCloudinary =
+  !ENV.CLOUDINARY.API_KEY ||
+  ENV.CLOUDINARY.API_KEY === 'mock_key' ||
+  ENV.CLOUDINARY.CLOUD_NAME === 'mock_cloud';
+
 export const uploadBufferToCloudinary = async (
   buffer: Buffer,
   folder: string = 'joyeria_con_alma/productos'
 ): Promise<{ url: string; publicId: string }> => {
+  if (isMockCloudinary) {
+    const base64Image = `data:image/jpeg;base64,${buffer.toString('base64')}`;
+    return {
+      url: base64Image,
+      publicId: `local_${Date.now()}`,
+    };
+  }
+
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
@@ -34,6 +47,10 @@ export const uploadBufferToCloudinary = async (
 };
 
 export const deleteFromCloudinary = async (publicIdOrUrl: string): Promise<boolean> => {
+  if (isMockCloudinary || publicIdOrUrl.startsWith('data:') || publicIdOrUrl.startsWith('local_')) {
+    return true;
+  }
+
   try {
     let publicId = publicIdOrUrl;
     // Extraer publicId si se pasa una URL completa

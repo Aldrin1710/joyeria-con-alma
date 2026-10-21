@@ -1,4 +1,4 @@
-import apiClient from './client.js';
+import apiClient from '../../../api/client.js';
 
 export const productService = {
   // Obtener catálogo con paginación de 15, búsqueda y hashtags
@@ -32,3 +32,10 @@ export const productService = {
     return response.data?.data || [];
   },
 };
+
+export const {
+  getProducts,
+  getSearchSuggestions,
+  getProductById,
+  getUniqueHashtags,
+} = productService;
